@@ -7,20 +7,25 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.membercenter.R;
+import com.example.membercenter.Utils.StaticMethods;
 import com.example.membercenter.Utils.StaticVariables;
 import com.example.membercenter.data.DataManager;
 import com.example.membercenter.data.network.model.Member;
+import com.example.membercenter.ui.MemberDetail.DetailActivity;
 import com.example.membercenter.ui.base.BaseActivity;
 import com.example.membercenter.ui.main.MainViewModel;
 import com.example.membercenter.ui.main.MainViewModelFactory;
 import com.xuexiang.xui.widget.textview.supertextview.SuperTextView;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MineActivity extends BaseActivity<MineViewModel> {
 
@@ -49,6 +54,15 @@ public class MineActivity extends BaseActivity<MineViewModel> {
                 updateMemberProfile(member);
             }
         });
+
+        Context context = this;
+
+        mSuperTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DetailActivity.start(context,viewModel.getMemberMutableLiveData().getValue());
+            }
+        });
     }
 
     public static void start(Context context,Member member){
@@ -58,16 +72,11 @@ public class MineActivity extends BaseActivity<MineViewModel> {
     }
 
     private void updateMemberProfile(Member member) {
-        RequestOptions options = new RequestOptions()
-                .placeholder(R.drawable.avatar)
-                .diskCacheStrategy(DiskCacheStrategy.ALL);
 
         mSuperTextView.setLeftTopString(member.getName());
         mSuperTextView.setLeftBottomString(member.getPhone());
 
-        Glide.with(this)
-                .load(member.getAvatarLink())
-                .apply(options)
-                .into(mSuperTextView.getLeftIconIV());
+        // 根据URL加载头像
+        StaticMethods.showMessage(this,member.getAvatarLink(),mSuperTextView.getLeftIconIV(),R.drawable.avatar);
     }
 }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <!--ActionBar-->
+    <com.xuexiang.xui.widget.actionbar.TitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tb_actionPadding="20dp"
+        app:tb_centerGravity="center"
+        app:tb_titleText="" />
+
+
+    <!--头像-->
+    <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+        style="@style/MemberDetailItem"
+        android:layout_height="100dp"
+        app:sLeftTextString="头像">
+
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+            android:id="@+id/avatar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/sRightImgId"
+            app:srcCompat="@drawable/avatar" />
+
+    </com.xuexiang.xui.widget.textview.supertextview.SuperTextView>
+
+    <!--姓名/职称-->
+    <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+        android:id="@+id/name"
+        style="@style/MemberDetailItem"
+        app:sLeftTextString="姓名/职称" />
+
+    <!--公司名称-->
+    <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+        android:id="@+id/companyName"
+        style="@style/MemberDetailItem"
+        app:sLeftTextString="公司名称" />
+
+    <!--公司地址-->
+    <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+        android:id="@+id/address"
+        style="@style/MemberDetailItem"
+        app:sLeftTextString="公司地址" />
+
+    <!--邮箱-->
+    <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+        android:id="@+id/email"
+        style="@style/MemberDetailItem"
+        app:sLeftTextString="邮箱" />
+    <!--电话-->
+    <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+        android:id="@+id/phone"
+        style="@style/MemberDetailItem"
+        app:sLeftTextString="电话" />
+
+</LinearLayout>
