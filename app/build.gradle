@@ -17,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 
 dependencies {
@@ -50,5 +54,9 @@ dependencies {
 
     //extensions
     implementation "android.arch.lifecycle:extensions:1.1.1"
+
+
+    // XUI
+    implementation 'com.github.xuexiangjys:XUI:1.1.1'
 
 }
