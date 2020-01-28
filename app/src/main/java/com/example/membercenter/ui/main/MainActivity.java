@@ -1,7 +1,6 @@
 package com.example.membercenter.ui.main;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -35,8 +34,6 @@ public class MainActivity extends BaseActivity<MainViewModel> {
 
         Context context = this;
 
-        viewModel.requestMember();
-
         viewModel.getMemberMutableLiveData().observe(this, member -> {
             String message = "获取用户信息成功";
             if (member == null){
@@ -44,12 +41,16 @@ public class MainActivity extends BaseActivity<MainViewModel> {
             }
             Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
         });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewModel.requestMember();
     }
 
     @OnClick(R.id.jump_button)
     void jump(){
-        Intent intent = new Intent(this, MineActivity.class);
-        startActivity(intent);
+        MineActivity.start(this,viewModel.getMemberMutableLiveData().getValue());
     }
 }

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MemberCenter</string>
+    <string name="avatarLinkLabel">头像</string>
+    <string name="nameLabel">姓名</string>
+    <string name="companyNameLabel">公司名称</string>
+    <string name="addressLabel">公司地址</string>
+    <string name="emailLabel">邮箱</string>
+    <string name="phoneLabel">电话</string>
 </resources>

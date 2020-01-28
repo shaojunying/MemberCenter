@@ -1,7 +1,5 @@
 package com.example.membercenter.ui.main;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.membercenter.data.network.model.Member;
@@ -52,5 +50,4 @@ public class MainViewModel extends BaseViewModel {
             mMemberMutableLiveData.postValue(null);
         }
     }
-
 }
