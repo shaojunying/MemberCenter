@@ -1,5 +1,6 @@
 package com.example.membercenter.data.network.model;
 
+import com.example.membercenter.data.db.entity.Member;
 import com.google.gson.annotations.Expose;
 
 public class MemberResponse {

@@ -6,4 +6,14 @@ public class StaticVariables {
 
     public static final String MEMBER = "MEMBER";
 
+    public static final int memberId = 1;
+
+    public static enum AttributeType {
+        name,
+        companyName,
+        address,
+        email,
+        phone
+    }
+
 }

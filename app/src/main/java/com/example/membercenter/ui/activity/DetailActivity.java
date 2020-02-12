@@ -1,22 +1,20 @@
-package com.example.membercenter.ui.MemberDetail;
+package com.example.membercenter.ui.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.membercenter.R;
 import com.example.membercenter.Utils.StaticMethods;
-import com.example.membercenter.Utils.StaticVariables;
-import com.example.membercenter.data.network.model.Member;
-import com.example.membercenter.ui.base.BaseActivity;
+import com.example.membercenter.data.db.entity.Member;
+import com.example.membercenter.ui.viewModel.DetailViewModel;
 import com.xuexiang.xui.widget.imageview.RadiusImageView;
 import com.xuexiang.xui.widget.textview.supertextview.SuperTextView;
 
-public class DetailActivity extends BaseActivity<DetailViewModel> {
+public class DetailActivity extends AppCompatActivity {
 
     private RadiusImageView avatar;
     private SuperTextView name;
@@ -25,24 +23,18 @@ public class DetailActivity extends BaseActivity<DetailViewModel> {
     private SuperTextView email;
     private SuperTextView phone;
 
-    @NonNull
-    @Override
-    protected DetailViewModel createViewModel() {
-        Member member = getIntent().getParcelableExtra(StaticVariables.MEMBER);
-        DetailViewModelFactory factory = new DetailViewModelFactory(member);
-        return ViewModelProviders.of(this,factory).get(DetailViewModel.class);
-    }
+    DetailViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        viewModel.loadMember();
+        mViewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
 
         initComponents();
 
-        viewModel.getMemberMutableLiveData().observe(this, new Observer<Member>() {
+        mViewModel.getMember().observe(this, new Observer<Member>() {
             @Override
             public void onChanged(Member member) {
                 updateMemberDetail(member);
@@ -58,6 +50,14 @@ public class DetailActivity extends BaseActivity<DetailViewModel> {
         address = findViewById(R.id.address);
         email = findViewById(R.id.email);
         phone = findViewById(R.id.phone);
+
+//        Context context = this;
+
+//        name.setOnClickListener(v -> ChangeActivity.start(context, StaticVariables.AttributeType.name));
+//        companyName.setOnClickListener(v -> ChangeActivity.start(context, StaticVariables.AttributeType.companyName));
+//        address.setOnClickListener(v -> ChangeActivity.start(context, StaticVariables.AttributeType.address));
+//        email.setOnClickListener(v -> ChangeActivity.start(context, StaticVariables.AttributeType.email));
+//        phone.setOnClickListener(v -> ChangeActivity.start(context, StaticVariables.AttributeType.phone));
     }
 
     private void updateMemberDetail(Member member) {
@@ -69,10 +69,5 @@ public class DetailActivity extends BaseActivity<DetailViewModel> {
         phone.setRightString(member.getPhone());
     }
 
-    public static void start(Context context, Member member){
-        Intent intent = new Intent(context,DetailActivity.class);
-        intent.putExtra(StaticVariables.MEMBER,member);
-        context.startActivity(intent);
-    }
 
 }
