@@ -28,13 +28,19 @@ public class MemberRepository {
         mMemberService = MemberService.getInstance();
     }
 
-    private void insert(Member member){
+    public void insert(Member member){
         new InsertMemberAsyncTask(mMemberDao).execute(member);
     }
 
     public void requestMember(){
         mMemberService.getMemberApi().getMember().enqueue(new MemberCallBack());
     }
+
+
+//    public void putMember(String changeType,String originalContent){
+//        PutMemberParam param = new PutMemberParam(changeType,originalContent);
+//        mMemberService.getMemberApi().putMember(param).enqueue(new PutMemberCallBack());
+//    }
 
     public LiveData<Member> getMember() {
         return mMember;
@@ -54,7 +60,7 @@ public class MemberRepository {
         }
     }
 
-    private class MemberCallBack implements retrofit2.Callback<com.example.membercenter.data.network.model.MemberResponse> {
+    public class MemberCallBack implements retrofit2.Callback<MemberResponse> {
         @Override
         public void onResponse(Call<MemberResponse> call, Response<MemberResponse> response) {
             MemberResponse memberResponse = response.body();

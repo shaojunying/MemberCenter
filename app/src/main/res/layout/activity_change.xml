@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.changeInformation.ChangeActivity">
+    android:orientation="vertical">
 
-    <com.xuexiang.xui.widget.edittext.ClearEditText
-        android:id="@+id/content"
+    <com.xuexiang.xui.widget.textview.supertextview.SuperTextView
+        android:id="@+id/edit_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"/>
+        android:layout_height="60dp"
+        app:sEnableEdit="true" />
+
+    <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+        android:id="@+id/submit_button"
+        android:layout_margin="20dp"
+        style="@style/ButtonView.Blue"
+        android:text="提交"
+        />
 
 </LinearLayout>

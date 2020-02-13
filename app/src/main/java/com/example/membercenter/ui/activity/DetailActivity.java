@@ -4,11 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.membercenter.R;
 import com.example.membercenter.Utils.StaticMethods;
+import com.example.membercenter.Utils.StaticVariables;
 import com.example.membercenter.data.db.entity.Member;
 import com.example.membercenter.ui.viewModel.DetailViewModel;
 import com.xuexiang.xui.widget.imageview.RadiusImageView;
@@ -25,16 +27,19 @@ public class DetailActivity extends AppCompatActivity {
 
     DetailViewModel mViewModel;
 
+    LiveData<Member> mMember;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
         mViewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
+        mMember = mViewModel.getMember();
 
         initComponents();
 
-        mViewModel.getMember().observe(this, new Observer<Member>() {
+        mMember.observe(this, new Observer<Member>() {
             @Override
             public void onChanged(Member member) {
                 updateMemberDetail(member);
@@ -43,7 +48,7 @@ public class DetailActivity extends AppCompatActivity {
 
     }
 
-    private void initComponents(){
+    private void initComponents() {
         avatar = findViewById(R.id.avatar);
         name = findViewById(R.id.name);
         companyName = findViewById(R.id.companyName);
@@ -51,17 +56,18 @@ public class DetailActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         phone = findViewById(R.id.phone);
 
-//        Context context = this;
+        Context context = this;
+        // TODO 头像的点击事件
 
-//        name.setOnClickListener(v -> ChangeActivity.start(context, StaticVariables.AttributeType.name));
-//        companyName.setOnClickListener(v -> ChangeActivity.start(context, StaticVariables.AttributeType.companyName));
-//        address.setOnClickListener(v -> ChangeActivity.start(context, StaticVariables.AttributeType.address));
-//        email.setOnClickListener(v -> ChangeActivity.start(context, StaticVariables.AttributeType.email));
-//        phone.setOnClickListener(v -> ChangeActivity.start(context, StaticVariables.AttributeType.phone));
+        name.setOnClickListener(v -> ChangeActivity.start(context, StaticVariables.NAME, name.getRightString()));
+        companyName.setOnClickListener(v -> ChangeActivity.start(context, StaticVariables.COMPANY_NAME, companyName.getRightString()));
+        address.setOnClickListener(v -> ChangeActivity.start(context, StaticVariables.ADDRESS, address.getRightString()));
+        email.setOnClickListener(v -> ChangeActivity.start(context, StaticVariables.EMAIL, email.getRightString()));
+        phone.setOnClickListener(v -> ChangeActivity.start(context, StaticVariables.PHONE, phone.getRightString()));
     }
 
     private void updateMemberDetail(Member member) {
-        StaticMethods.showMessage(this,member.getAvatarLink(),avatar,R.drawable.avatar);
+        StaticMethods.showMessage(this, member.getAvatarLink(), avatar, R.drawable.avatar);
         name.setRightString(member.getName());
         companyName.setRightString(member.getCompanyName());
         address.setRightString(member.getAddress());

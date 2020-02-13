@@ -2,11 +2,14 @@ package com.example.membercenter.data.network.services;
 
 import com.example.membercenter.Utils.StaticVariables;
 import com.example.membercenter.data.network.model.MemberResponse;
+import com.example.membercenter.data.network.model.PutMemberParam;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.PUT;
 
 public class MemberService {
 
@@ -35,5 +38,8 @@ public class MemberService {
 
         @GET("user")
         Call<MemberResponse> getMember();
+
+        @PUT("user")
+        Call<MemberResponse> putMember(@Body PutMemberParam param);
     }
 }

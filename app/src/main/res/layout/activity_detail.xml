@@ -6,14 +6,14 @@
     android:orientation="vertical">
 
 
-    <!--ActionBar-->
-    <com.xuexiang.xui.widget.actionbar.TitleBar
-        android:id="@+id/titleBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tb_actionPadding="20dp"
-        app:tb_centerGravity="center"
-        app:tb_titleText="" />
+<!--    &lt;!&ndash;ActionBar&ndash;&gt;-->
+<!--    <com.xuexiang.xui.widget.actionbar.TitleBar-->
+<!--        android:id="@+id/titleBar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:tb_actionPadding="20dp"-->
+<!--        app:tb_centerGravity="center"-->
+<!--        app:tb_titleText="" />-->
 
 
     <!--头像-->

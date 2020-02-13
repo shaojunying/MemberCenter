@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.changeInformation.ChangeActivity"></activity>
+        <activity android:name=".ui.activity.ChangeActivity"></activity>
+        <activity android:name=".ui.changeInformation.ChangeActivity" />
         <activity android:name=".ui.activity.DetailActivity" />
         <activity android:name=".ui.activity.MineActivity" />
         <activity android:name=".ui.activity.MainActivity">
