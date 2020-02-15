@@ -41,5 +41,12 @@ public class MemberService {
 
         @PUT("user")
         Call<MemberResponse> putMember(@Body PutMemberParam param);
+
+//        @Multipart
+//        @POST("user/updateprofile")
+//        Call<ResponseBody> updateProfile(@Part("user_id") RequestBody id,
+//                                               @Part("full_name") RequestBody fullName,
+//                                               @Part MultipartBody.Part image,
+//                                               @Part("other") RequestBody other);
     }
 }

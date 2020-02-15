@@ -28,5 +28,4 @@
         <item name="sLeftViewMarginLeft">20dp</item>
         <item name="sRightIconRes">@drawable/ic_arrow_right</item>
     </style>
-
 </resources>

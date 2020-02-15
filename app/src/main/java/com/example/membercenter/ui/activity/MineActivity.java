@@ -30,21 +30,13 @@ public class MineActivity extends AppCompatActivity {
 
         mViewModel = ViewModelProviders.of(this).get(MineViewModel.class);
 
-        mViewModel.getMember().observe(this, new Observer<Member>() {
-            @Override
-            public void onChanged(Member member) {
-                updateMemberProfile(member);
-            }
-        });
+        mViewModel.getMember().observe(this, member -> updateMemberProfile(member));
 
         Context context = this;
 
-        mSuperTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context,DetailActivity.class);
-                startActivity(intent);
-            }
+        mSuperTextView.setOnClickListener(v -> {
+            Intent intent = new Intent(context,DetailActivity.class);
+            startActivity(intent);
         });
     }
 

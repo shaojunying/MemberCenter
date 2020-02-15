@@ -66,7 +66,6 @@ public class MemberRepository {
             MemberResponse memberResponse = response.body();
 
             if (memberResponse == null || !memberResponse.isSuccessful()){
-                // TODO 获取信息失败的处理
                 return;
             }
             // 获取用户信息成功
@@ -79,7 +78,6 @@ public class MemberRepository {
         public void onFailure(Call<MemberResponse> call, Throwable t) {
             // 获取用户信息失败
             t.printStackTrace();
-            // TODO 联网失败的处理
         }
     }
 }

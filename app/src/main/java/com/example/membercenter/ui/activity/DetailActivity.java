@@ -1,6 +1,7 @@
 package com.example.membercenter.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,6 +59,11 @@ public class DetailActivity extends AppCompatActivity {
 
         Context context = this;
         // TODO 头像的点击事件
+
+        avatar.setOnClickListener(v->{
+            Intent intent = new Intent(this,AvatarShowActivity.class);
+            startActivity(intent);
+        });
 
         name.setOnClickListener(v -> ChangeActivity.start(context, StaticVariables.NAME, name.getRightString()));
         companyName.setOnClickListener(v -> ChangeActivity.start(context, StaticVariables.COMPANY_NAME, companyName.getRightString()));

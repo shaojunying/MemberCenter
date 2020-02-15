@@ -37,7 +37,6 @@ public class ChangeActivity extends AppCompatActivity implements ChangeViewModel
         String changeType = getIntent().getStringExtra(StaticVariables.CHANGE_TYPE);
         String originalContent = getIntent().getStringExtra(StaticVariables.ORIGINAL_CONTENT);
 
-        Log.d("shao",originalContent);
         editContent.setCenterEditString(originalContent);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
