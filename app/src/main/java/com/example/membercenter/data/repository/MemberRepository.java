@@ -10,10 +10,17 @@ import com.example.membercenter.data.db.dao.MemberDao;
 import com.example.membercenter.data.db.db.MemberDatabase;
 import com.example.membercenter.data.db.entity.Member;
 import com.example.membercenter.data.network.model.MemberResponse;
+import com.example.membercenter.data.network.model.PutMemberParam;
 import com.example.membercenter.data.network.services.MemberService;
 
-import retrofit2.Call;
-import retrofit2.Response;
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MemberRepository {
 
@@ -32,15 +39,36 @@ public class MemberRepository {
         new InsertMemberAsyncTask(mMemberDao).execute(member);
     }
 
-    public void requestMember(){
-        mMemberService.getMemberApi().getMember().enqueue(new MemberCallBack());
+    public void requestMember(Subscriber<MemberResponse> subscriber){
+
+        mMemberService.getMemberApi().getMember()
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void uploadAvatar(Subscriber<MemberResponse> subscriber, File file){
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+
+        mMemberService.getMemberApi().uploadAvatar(requestBody)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
     }
 
 
-//    public void putMember(String changeType,String originalContent){
-//        PutMemberParam param = new PutMemberParam(changeType,originalContent);
-//        mMemberService.getMemberApi().putMember(param).enqueue(new PutMemberCallBack());
-//    }
+    public void putMember(Subscriber<MemberResponse> subscriber,String changeType,String originalContent){
+        PutMemberParam param = new PutMemberParam(changeType,originalContent);
+
+        mMemberService.getMemberApi().putMember(param)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
 
     public LiveData<Member> getMember() {
         return mMember;
@@ -60,24 +88,5 @@ public class MemberRepository {
         }
     }
 
-    public class MemberCallBack implements retrofit2.Callback<MemberResponse> {
-        @Override
-        public void onResponse(Call<MemberResponse> call, Response<MemberResponse> response) {
-            MemberResponse memberResponse = response.body();
 
-            if (memberResponse == null || !memberResponse.isSuccessful()){
-                return;
-            }
-            // 获取用户信息成功
-            Member member = memberResponse.getMember();
-
-            insert(member);
-        }
-
-        @Override
-        public void onFailure(Call<MemberResponse> call, Throwable t) {
-            // 获取用户信息失败
-            t.printStackTrace();
-        }
-    }
 }

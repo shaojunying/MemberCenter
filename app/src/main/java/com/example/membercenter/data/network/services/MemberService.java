@@ -4,12 +4,14 @@ import com.example.membercenter.Utils.StaticVariables;
 import com.example.membercenter.data.network.model.MemberResponse;
 import com.example.membercenter.data.network.model.PutMemberParam;
 
-import retrofit2.Call;
+import okhttp3.RequestBody;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.PUT;
+import rx.Observable;
 
 public class MemberService {
 
@@ -25,8 +27,11 @@ public class MemberService {
     }
 
     private MemberService(){
-        Retrofit retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(StaticVariables.URL).build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(StaticVariables.URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
         mMemberApi = retrofit.create(MemberApi.class);
     }
 
@@ -37,16 +42,12 @@ public class MemberService {
     public interface MemberApi {
 
         @GET("user")
-        Call<MemberResponse> getMember();
+        Observable<MemberResponse> getMember();
 
         @PUT("user")
-        Call<MemberResponse> putMember(@Body PutMemberParam param);
+        Observable<MemberResponse> putMember(@Body PutMemberParam param);
 
-//        @Multipart
-//        @POST("user/updateprofile")
-//        Call<ResponseBody> updateProfile(@Part("user_id") RequestBody id,
-//                                               @Part("full_name") RequestBody fullName,
-//                                               @Part MultipartBody.Part image,
-//                                               @Part("other") RequestBody other);
+        @PUT("avatar")
+        Observable<MemberResponse> uploadAvatar(@Body RequestBody requestBody);
     }
 }

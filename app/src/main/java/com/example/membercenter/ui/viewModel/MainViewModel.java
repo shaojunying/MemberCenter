@@ -7,7 +7,10 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.membercenter.data.db.entity.Member;
+import com.example.membercenter.data.network.model.MemberResponse;
 import com.example.membercenter.data.repository.MemberRepository;
+
+import rx.Subscriber;
 
 public class MainViewModel extends AndroidViewModel {
 
@@ -23,8 +26,29 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public void requestMember(){
-        repository.requestMember();
+        repository.requestMember(sSubscriber);
     }
+
+
+    private Subscriber<MemberResponse> sSubscriber = new Subscriber<MemberResponse>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            e.printStackTrace();
+        }
+
+        @Override
+        public void onNext(MemberResponse memberResponse) {
+            if (memberResponse ==null || !memberResponse.isSuccessful()){
+                return;
+            }
+            repository.insert(memberResponse.getMember());
+        }
+    };
 
 
     public LiveData<Member> getMember(){
