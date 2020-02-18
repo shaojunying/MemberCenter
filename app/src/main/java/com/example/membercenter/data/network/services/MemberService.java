@@ -10,6 +10,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import rx.Observable;
 
@@ -47,7 +48,7 @@ public class MemberService {
         @PUT("user")
         Observable<MemberResponse> putMember(@Body PutMemberParam param);
 
-        @PUT("avatar")
+        @PUT("user/avatar")
         Observable<MemberResponse> uploadAvatar(@Body RequestBody requestBody);
     }
 }

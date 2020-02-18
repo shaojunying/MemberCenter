@@ -7,14 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.example.membercenter.data.db.entity.Member;
 import com.example.membercenter.data.network.model.MemberResponse;
-import com.example.membercenter.data.network.model.PutMemberParam;
-import com.example.membercenter.data.network.services.MemberService;
 import com.example.membercenter.data.repository.MemberRepository;
 
-import java.io.File;
-
-import retrofit2.Call;
-import retrofit2.Response;
 import rx.Subscriber;
 
 public class ChangeViewModel extends AndroidViewModel {
